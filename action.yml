@@ -20,6 +20,23 @@ inputs:
     description: 'Override tt-support-tools branch, tag, or commit'
     default: 'experimental'
     required: false
+    type: string
+  pdk:
+    description: 'PDK used for hardening the chip'
+    required: true
+    type: choice
+    options:
+      - 'gf180mcuD'
+      - 'ihp-sg13g2'
+      - 'sky130A'
+  librelane-version:
+    description: 'LibreLane version to install'
+    default: '3.0.14'
+
+  oss-cad-suite-version:
+    description: 'OSS CAD Suite release version (YYYY-MM-DD)'
+    required: false
+    default: '2026-07-20'
 
   ecp5-device:
     description: 'ECP5 device size (25k, 45k, 85k)'
@@ -62,6 +79,7 @@ runs:
       with:
         tools-repo: ${{ inputs.tools-repo || 'ulx3s/tt-support-tools' }}
         tools-ref: ${{ inputs.tools-ref }}
+        oss-cad-suite-version: ${{ inputs.oss-cad-suite-version }}
         ecp5-device: ${{ inputs.ecp5-device }}
         lpf: ${{ inputs.lpf || 'tt/fpga/ulx3s/ulx3s_v20.lpf' }}
         artifact-name: ${{ inputs.artifact-name || 'fpga_ulx3s_ecp5' }}
@@ -73,6 +91,7 @@ runs:
       with:
         tools-repo: ${{ inputs.tools-repo || 'ulx3s/tt-support-tools' }}
         tools-ref: ${{ inputs.tools-ref }}
+        oss-cad-suite-version: ${{ inputs.oss-cad-suite-version }}
         ecp5-device: ${{ inputs.ecp5-device }}
         lpf: ${{ inputs.lpf || 'tt/fpga/ulx4m/ulx4m_ls_v003.lpf' }}
         artifact-name: ${{ inputs.artifact-name || 'fpga_ulx4m_ecp5' }}

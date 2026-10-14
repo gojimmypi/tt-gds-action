@@ -12,6 +12,11 @@ inputs:
     default: 'ulx3s/tt-support-tools'
     required: false
 
+  oss-cad-suite-version:
+    description: 'OSS CAD Suite release version (YYYY-MM-DD)'
+    required: false
+    default: '2026-07-20'
+
   tools-ref:
     description: 'Override tt-support-tools branch/tag/commit'
   # default: 'main'
@@ -61,8 +66,10 @@ runs:
     - name: install oss-cad-suite
       uses: YosysHQ/setup-oss-cad-suite@v4
       with:
+        # See: https://github.com/YosysHQ/setup-oss-cad-suite#use-github_token-to-prevent-api-rate-limiting
+        github-token: ${{ github.token }}
         python-override: true
-        version: '2026-04-26'
+        version: ${{ inputs.oss-cad-suite-version }}
 
     - name: Create iCE40 UP5K bitstream
       shell: bash

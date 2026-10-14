@@ -82,6 +82,18 @@ Additional action parameters are specified in the `with:`:
           uart-enabled: true
 ```
 
+The optional `oss-cad-suite-version` input selects the OSS CAD Suite release.
+It defaults to `2026-07-20` for ULX3S, ULX4M, and iCE40 UP5K actions.
+For example, to override the default in a calling workflow:
+
+```yaml
+        with:
+          oss-cad-suite-version: '2026-07-20'
+```
+
+The ULX3S and ULX4M root action also forwards this input to the selected board action.
+The setup step uses the calling workflow's GitHub token for authenticated release lookups; no separate secret is needed.
+
 The `with: lpf:` constraint files are provided by [`ulx3s/tt-support-tools`](https://github.com/ulx3s/tt-support-tools/tree/experimental/fpga/ulx3s) and are checked out under `tt/fpga/ulx3s` by the action.
 
 ## Usage with GitHub Marketplace Syntax

@@ -18,6 +18,11 @@ inputs:
     default: 'experimental' # TODO remove and uncomment above ^
     required: false
 
+  oss-cad-suite-version:
+    description: 'OSS CAD Suite release version (YYYY-MM-DD)'
+    required: false
+    default: '2026-07-20'
+
   ecp5-device:
     description: 'ECP5 device size (25k, 45k, 85k)'
     default: '85k'
@@ -74,8 +79,10 @@ runs:
     - name: Install oss-cad-suite
       uses: YosysHQ/setup-oss-cad-suite@v4
       with:
+        # See https://github.com/YosysHQ/setup-oss-cad-suite#use-github_token-to-prevent-api-rate-limiting
+        github-token: ${{ github.token }}
         python-override: true
-        version: '2026-04-26'
+        version: ${{ inputs.oss-cad-suite-version }}
 
     - name: Create ULX3S ECP5 bitstream
       shell: bash
